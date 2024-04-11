@@ -1,0 +1,86 @@
+:root {
+    --mainColor: #CE0030;
+    --secondaryColor: #F5F5F5;
+    --white: white;
+    --dark: #1E1E1E;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+    color: var(--dark);
+    width: 100%;
+    margin: 0 auto;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: var(--secondaryColor);
+    padding: 40px 20px;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+h1, h2, h3 {
+    color: var(--mainColor);
+}
+
+/* BUTTONS */
+
+.btn_outline {
+    padding: 6px 12px;
+    background-color: none;
+    border-radius: 4px;
+    border: 1px solid var(--mainColor);
+    color: var(--mainColor);
+    text-align: center;
+    object-fit: contain;
+}
+
+.btn_full {
+    padding: 6px 12px;
+    background-color: var(--mainColor);
+    border-radius: 4px;
+    color: var(--secondaryColor);
+    text-align: center;
+    object-fit: contain;
+}
+
+.btn_outline:hover {
+    background-color: var(--mainColor);
+    color: var(--secondaryColor);
+}
+
+.btn_full:hover {
+    background-color: none;
+    color: var(--mainColor);
+}
+
+.navbar {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    background-color: var(--white)!important;
+}
+
+.navbar-brand img {
+    max-width: 200px;
+}
+
+footer {
+    background-color: #CE0030;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer p {
+    color: var(--white);
+    text-align: center;
+    font-size: 0.8em;
+    margin: 0;
+}

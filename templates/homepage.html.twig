@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    <h1>Les 5 derniers threads</h1>
+
+    {% for thread in threads %}
+    <div>
+        <div class="votes"></div>
+        <div class="thread">
+            <h2>{{ thread.title }}</h2>
+            <p>{{ thread.description }}</p>            
+            <div>
+                <div class="tags"></div>
+                <p>{{ "Posté le " ~ thread.createdAt|date('d-m-Y') }}</p>
+                {% if thread.dateUpdate != null %}
+                    <p>{{ "Modifié le " ~ thread.dateUpdate|date('d-m-Y') }}</p>
+                {% endif %}
+            </div>
+        </div>    
+    </div>
+    {% endfor %}
+
+    <button class="btn btn_full">Créer un thread</button>
+
+{% endblock %}
