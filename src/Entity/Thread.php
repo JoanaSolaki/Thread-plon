@@ -16,13 +16,28 @@ class Thread
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'relation_thread')]
+    private ?User $user = null;
+
+    /**
+     * @var Collection<int, Response>
+     */
+    #[ORM\OneToMany(targetEntity: Response::class, mappedBy: 'thread')]
+    private Collection $relation_response;
+
+    /**
+     * @var Collection<int, Category>
+     */
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'threads')]
+    private Collection $relation_category;
+
     #[ORM\Column(length: 20)]
     private ?string $status = null;
 
     #[ORM\Column(length: 100)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 255)]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -34,27 +49,81 @@ class Thread
     #[ORM\Column(length: 255)]
     private ?string $body = null;
 
-    /**
-     * @var Collection<int, Category>
-     */
-    #[ORM\ManyToMany(targetEntity: Category::class, mappedBy: 'thread')]
-    private Collection $categories;
-
-    /**
-     * @var Collection<int, Response>
-     */
-    #[ORM\OneToMany(targetEntity: Response::class, mappedBy: 'thread')]
-    private Collection $responses;
-
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
-        $this->responses = new ArrayCollection();
+        $this->relation_response = new ArrayCollection();
+        $this->relation_category = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Response>
+     */
+    public function getRelationResponse(): Collection
+    {
+        return $this->relation_response;
+    }
+
+    public function addRelationResponse(Response $relationResponse): static
+    {
+        if (!$this->relation_response->contains($relationResponse)) {
+            $this->relation_response->add($relationResponse);
+            $relationResponse->setThread($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationResponse(Response $relationResponse): static
+    {
+        if ($this->relation_response->removeElement($relationResponse)) {
+            // set the owning side to null (unless already changed)
+            if ($relationResponse->getThread() === $this) {
+                $relationResponse->setThread(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getRelationCategory(): Collection
+    {
+        return $this->relation_category;
+    }
+
+    public function addRelationCategory(Category $relationCategory): static
+    {
+        if (!$this->relation_category->contains($relationCategory)) {
+            $this->relation_category->add($relationCategory);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationCategory(Category $relationCategory): static
+    {
+        $this->relation_category->removeElement($relationCategory);
+
+        return $this;
     }
 
     public function getStatus(): ?string
@@ -125,63 +194,6 @@ class Thread
     public function setBody(string $body): static
     {
         $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): static
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
-            $category->addThread($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): static
-    {
-        if ($this->categories->removeElement($category)) {
-            $category->removeThread($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Response>
-     */
-    public function getResponses(): Collection
-    {
-        return $this->responses;
-    }
-
-    public function addResponse(Response $response): static
-    {
-        if (!$this->responses->contains($response)) {
-            $this->responses->add($response);
-            $response->setThread($this);
-        }
-
-        return $this;
-    }
-
-    public function removeResponse(Response $response): static
-    {
-        if ($this->responses->removeElement($response)) {
-            // set the owning side to null (unless already changed)
-            if ($response->getThread() === $this) {
-                $response->setThread(null);
-            }
-        }
 
         return $this;
     }

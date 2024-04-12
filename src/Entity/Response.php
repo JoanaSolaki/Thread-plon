@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ResponseRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,6 +16,18 @@ class Response
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'relation_response')]
+    private ?User $user = null;
+
+    /**
+     * @var Collection<int, Votes>
+     */
+    #[ORM\OneToMany(targetEntity: Votes::class, mappedBy: 'response')]
+    private Collection $relation_votes;
+
+    #[ORM\ManyToOne(inversedBy: 'relation_response')]
+    private ?Thread $thread = null;
+
     #[ORM\Column(length: 255)]
     private ?string $body_response = null;
 
@@ -23,12 +37,68 @@ class Response
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date_update = null;
 
-    #[ORM\ManyToOne(inversedBy: 'responses')]
-    private ?Thread $thread = null;
+    public function __construct()
+    {
+        $this->relation_votes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Votes>
+     */
+    public function getRelationVotes(): Collection
+    {
+        return $this->relation_votes;
+    }
+
+    public function addRelationVote(Votes $relationVote): static
+    {
+        if (!$this->relation_votes->contains($relationVote)) {
+            $this->relation_votes->add($relationVote);
+            $relationVote->setResponse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelationVote(Votes $relationVote): static
+    {
+        if ($this->relation_votes->removeElement($relationVote)) {
+            // set the owning side to null (unless already changed)
+            if ($relationVote->getResponse() === $this) {
+                $relationVote->setResponse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getThread(): ?Thread
+    {
+        return $this->thread;
+    }
+
+    public function setThread(?Thread $thread): static
+    {
+        $this->thread = $thread;
+
+        return $this;
     }
 
     public function getBodyResponse(): ?string
@@ -63,18 +133,6 @@ class Response
     public function setDateUpdate(?\DateTimeInterface $date_update): static
     {
         $this->date_update = $date_update;
-
-        return $this;
-    }
-
-    public function getThread(): ?Thread
-    {
-        return $this->thread;
-    }
-
-    public function setThread(?Thread $thread): static
-    {
-        $this->thread = $thread;
 
         return $this;
     }

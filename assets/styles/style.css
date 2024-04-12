@@ -5,6 +5,8 @@
     --dark: #1E1E1E;
 }
 
+/* GENERAL */
+
 body {
     font-family: "Cairo", sans-serif;
     color: var(--dark);
@@ -58,6 +60,8 @@ h1, h2, h3 {
     color: var(--mainColor);
 }
 
+/* NAVBAR */
+
 .navbar {
     display: flex;
     flex-flow: row;
@@ -68,6 +72,8 @@ h1, h2, h3 {
 .navbar-brand img {
     max-width: 200px;
 }
+
+/* FOOTER */
 
 footer {
     background-color: #CE0030;
