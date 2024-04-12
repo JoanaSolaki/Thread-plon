@@ -12,13 +12,15 @@ body {
     color: var(--dark);
     width: 100%;
     margin: 0 auto;
+    min-height: 100vh;
 }
 
 main {
     max-width: 1000px;
     margin: 0 auto;
     background-color: var(--secondaryColor);
-    padding: 40px 20px;
+    padding: 40px 80px;
+    min-height: calc(100vh - 106px);
 }
 
 h1 {
@@ -27,6 +29,11 @@ h1 {
 
 h1, h2, h3 {
     color: var(--mainColor);
+}
+
+form {
+    max-width: 400px;
+    margin: 40px auto;
 }
 
 /* BUTTONS */
@@ -67,10 +74,20 @@ h1, h2, h3 {
     flex-flow: row;
     justify-content: space-between;
     background-color: var(--white)!important;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .navbar-brand img {
     max-width: 200px;
+}
+
+.navbar form {
+    margin: 0;
+}
+
+.container-fluid {
+    padding: 0;
 }
 
 /* FOOTER */

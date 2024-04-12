@@ -3,11 +3,19 @@
     <a class="navbar-brand" href="{{ path('app_homepage') }}">
         <img src="{{ asset('img/logo_threadplon_full.png') }}" alt="logo Thread-plon">
     </a>
-    <div>
+    <div>      
+      {% if app.user %}
         <form class="container-fluid justify-content-start">
-            <a href="{{ path('app_register') }}" class="btn btn-outline btn_outline" type="button">Sign-in</a>
-            <a href="" class="btn btn_full" type="button">Sign-up</a>
+          <a href="{{ path('app_user') }}" class="btn">{{ app.user.username }}</a>
+          <a href="{{ path('app_logout') }}" class="btn btn_full">Logout</a>
         </form>
+      {% else %}
+        <form class="container-fluid justify-content-start">
+            <a href="{{ path('app_register') }}" class="btn btn-outline btn_outline" type="button">S'inscrire</a>
+            <a href="{{ path('app_login') }}" class="btn btn_full" type="button">Se connecter</a>
+        </form>
+      {% endif %}
+
     </div>
   </div>
 </nav>
