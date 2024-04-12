@@ -24,9 +24,12 @@
         </header>
 
         <main>
+        {% include "/components/flash.html.twig" %}
+
         {% block main %}
             <h1>Hello !</h1>
         {% endblock %}
+
         </main>
 
         <footer>
