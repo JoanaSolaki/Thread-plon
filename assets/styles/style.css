@@ -61,6 +61,7 @@ form {
     background-color: var(--mainColor);
     color: var(--secondaryColor);
     font-size: 0.9em;
+    object-fit: contain;
 }
 
 /* BUTTONS */
@@ -115,6 +116,17 @@ form {
 
 .container-fluid {
     padding: 0;
+}
+
+/* THREADS */
+
+.lineThread {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white);
+    padding: 20px;
+    margin: 20px 0;
 }
 
 /* FOOTER */

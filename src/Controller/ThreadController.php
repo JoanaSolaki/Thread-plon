@@ -31,6 +31,14 @@ class ThreadController extends AbstractController
         ]);
     }
 
+    #[Route('/thread/{id}', name: 'app_threadPost')]
+    public function threadPost(int $id): Response
+    {
+        return $this->render('thread/threadpost.html.twig', [
+            'id' => $id
+        ]);
+    }
+
     #[Route('/thread/add', name: 'app_threadAdd')]
     public function addThread(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {

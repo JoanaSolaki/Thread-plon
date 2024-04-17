@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le profil{% endblock %}
+
+{% block main %}
+    {% if id == app.user.id %}
+        <h1>Modifier le profil</h1>
+
+        {{ form(formUserEdit) }}
+    {% endif %}
+
+    {% if id != app.user.id %}
+        <h1>Nope.</h1>
+    {% endif %}
+{% endblock %}

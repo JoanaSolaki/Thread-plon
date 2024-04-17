@@ -4,30 +4,28 @@
     <h1>Les 5 derniers threads</h1>
 
     {% for thread in threads %}
-    <div>
-        <div class="thread">
-            <h2>{{ thread.title }}</h2>
+    <div class="thread">
+        <a href="{{ path('app_threadPost', {id: thread.id}) }}"><h2>{{ thread.title }}</h2></a>
 
-            <div class="threadInfos">
-                <p class="me-1">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') }}</p>
-                <a href="" class="me-1">{{ "par " ~ thread.user.username }}</a>
-                {% if thread.dateUpdate != null %}
-                    <p class="me-1">{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
-                {% endif %}
+        <div class="threadInfos">
+            <p class="me-1">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') }}</p>
+            <a href="{{ path('app_user', {id: thread.user.id}) }}" class="me-1">{{ "par " ~ thread.user.username }}</a>
+            {% if thread.dateUpdate != null %}
+                <p class="me-1">{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
+            {% endif %}
+
+        </div>
+
+        <p>{{ thread.description }}</p> 
+
+        <div>
+            <div class="tags">
+                {% for category in thread.relationCategory %}
+                    <p class="tag">{{ category.title }}</p>
+                {% endfor %}
             </div>
-
-
-            <p>{{ thread.description }}</p> 
-
-            <div>
-                <div class="tags">
-                    {% for category in thread.relationCategory %}
-                        <p class="tag">{{ category.title }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>    
-    </div>
+        </div>
+    </div>    
     {% endfor %}
 
     <a href="{{ path('app_threadAdd') }}" class="btn btn_full">Créer un thread</a>
