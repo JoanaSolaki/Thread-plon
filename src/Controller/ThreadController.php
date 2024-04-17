@@ -32,10 +32,12 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/thread/{id}', name: 'app_threadPost')]
-    public function threadPost(int $id): Response
+    public function threadPost(int $id, ThreadRepository $threadRepository): Response
     {
+        $thread = $threadRepository->find($id);
         return $this->render('thread/threadpost.html.twig', [
-            'id' => $id
+            'id' => $id,
+            'thread' => $thread
         ]);
     }
 

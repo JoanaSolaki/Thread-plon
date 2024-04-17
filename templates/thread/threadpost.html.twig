@@ -1,10 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un thread{% endblock %}
+{% block title %}{{ thread.title }}{% endblock %}
 
 {% block main %}
-    
 
+    <h1>{{ thread.title }}</h1>
+
+    <div class="thread">
+        <h2>{{ thread.title }}</h2>
+
+        <p>{{ "Posté le " ~ thread.createdAt|date('d/m/Y') }}</p>
+        <a href="{{ path('app_user', {id: thread.user.id}) }}" class="mb-4">{{ "Rédigé par " ~ thread.user.username }}</a>
+        {% if thread.dateUpdate != null %}
+            <p>{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
+        {% endif %}
+
+        <p>{{ thread.body }}</p> 
+
+        <div>
+            <div class="tags">
+                {% for category in thread.relationCategory %}
+                    <p class="tag">{{ category.title }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% for response in thread.relationResponse %}
+        <div class="thread">
+        
+            <div class="votes">
+                {% for votes in response.relationResponse %}
+                    
+                {% endfor %}
+            </div>
+
+            <div class="response">
+                <h2>{{ response.title }}</h2>
+
+                <p>{{ "Posté le " ~ response.createdAt|date('d/m/Y') }}</p>
+                <a href="{{ path('app_user', {id: response.user_id}) }}" class="mb-4">{{ "Rédigé par " ~ thread.user.username }}</a>
+                {% if response.dateUpdate != null %}
+                    <p>{{ "Modifié le " ~ response.dateUpdate|date('d/m/Y') }}</p>
+                {% endif %}
+
+                <p>{{ response.body_response }}</p> 
+            </div>
+        </div> 
+        
+    {% endfor %}
 
     {% if app.user %}
         <a href="" class="btn btn_full">Répondre</a>
