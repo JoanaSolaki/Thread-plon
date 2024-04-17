@@ -36,9 +36,6 @@ class UserEditType extends AbstractType
                 ],
             ])
             ->add('username')
-            ->add('save', SubmitType::class, [
-                'label' => "Modifier"
-            ]) 
         ;
     }
 

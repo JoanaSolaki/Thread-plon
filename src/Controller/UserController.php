@@ -25,7 +25,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{id}/edit', name: 'app_editUser', methods: ['POST, GET'])]
+    #[Route('/user/{id}/edit', name: 'app_editUser', methods: ['POST', 'GET'])]
     public function editUser(int $id, User $user, Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $formUserEdit = $this->createForm(UserEditType::class, $user);
