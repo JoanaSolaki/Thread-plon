@@ -5,21 +5,31 @@
 
     {% for thread in threads %}
     <div>
-        <div class="votes"></div>
         <div class="thread">
             <h2>{{ thread.title }}</h2>
-            <p>{{ thread.description }}</p>            
-            <div>
-                <div class="tags"></div>
-                <p>{{ "Posté le " ~ thread.createdAt|date('d-m-Y') }}</p>
+
+            <div class="threadInfos">
+                <p class="me-1">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') }}</p>
+                <a href="" class="me-1">{{ "par " ~ thread.user.username }}</a>
                 {% if thread.dateUpdate != null %}
-                    <p>{{ "Modifié le " ~ thread.dateUpdate|date('d-m-Y') }}</p>
+                    <p class="me-1">{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
                 {% endif %}
+            </div>
+
+
+            <p>{{ thread.description }}</p> 
+
+            <div>
+                <div class="tags">
+                    {% for category in thread.relationCategory %}
+                        <p class="tag">{{ category.title }}</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>    
     </div>
     {% endfor %}
 
-    <button class="btn btn_full">Créer un thread</button>
+    <a href="{{ path('app_threadAdd') }}" class="btn btn_full">Créer un thread</a>
 
 {% endblock %}

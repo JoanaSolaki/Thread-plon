@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un thread{% endblock %}
+
+{% block main %}
+    {% if app.user == null %}
+        <script>
+            window.location.href = "{{ path('app_login') }}";
+        </script>
+    {% endif %}
+
+    {% if app.user %}
+        <h1>Créer un thread</h1>
+
+        {{ form(formThread) }}
+    {% endif %}
+    
+{% endblock %}

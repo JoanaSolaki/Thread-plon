@@ -36,6 +36,33 @@ form {
     margin: 40px auto;
 }
 
+.thread {
+    background-color: var(--white);
+    border-radius: 4px;
+    padding: 20px;
+    margin: 10px 0px;
+}
+
+.thread h2 {
+    text-transform: uppercase;
+    font-size: 1.6em;
+}
+
+.tags, .threadInfos {
+    display: flex;
+}
+
+.tag {
+    display: block;
+    border-radius: 4px;
+    margin: 0 2px;
+    padding: 4px 8px;
+    text-transform: capitalize;
+    background-color: var(--mainColor);
+    color: var(--secondaryColor);
+    font-size: 0.9em;
+}
+
 /* BUTTONS */
 
 .btn_outline {
