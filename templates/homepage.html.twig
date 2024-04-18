@@ -5,9 +5,10 @@
 
     {% for thread in threads %}
     <div class="thread">
-        <a href="{{ path('app_threadPost', {id: thread.id}) }}"><h2>{{ thread.title }}</h2></a>
+        <a href="{{ path('app_threadPost', {id: thread.id}) }}"><h2>{{ thread.title }} - {{ thread.status }}</h2> </a>
 
         <div class="threadInfos">
+
             <p class="me-1">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') }}</p>
             <a href="{{ path('app_user', {id: thread.user.id}) }}" class="me-1">{{ "par " ~ thread.user.username }}</a>
             {% if thread.dateUpdate != null %}

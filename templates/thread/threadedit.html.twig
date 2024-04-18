@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un thread{% endblock %}
+
+{% block main %}
+    {% if app.user == null %}
+        <script>
+            window.location.href = "{{ path('app_login') }}";
+        </script>
+    {% endif %}
+
+    {% if app.user %}
+        <h1>Modifier votre thread</h1>
+
+        {{ form_start(formThreadEdit) }}
+            {{ form_row(formThreadEdit.title) }}
+            {{ form_row(formThreadEdit.status) }}
+            {{ form_row(formThreadEdit.description) }}
+            {{ form_row(formThreadEdit.body) }}
+            {{ form_row(formThreadEdit.relation_category)}}
+            <button type="submit" class="btn btn_full">Modifier</button>
+        {{ form_end(formThreadEdit) }}
+
+    {% endif %}
+    
+{% endblock %}

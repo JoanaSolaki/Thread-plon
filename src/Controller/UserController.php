@@ -46,7 +46,9 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'Les modifications ont bien été effectués.');
 
-            return $this->redirectToRoute('app_user{id}');
+            return $this->redirectToRoute('app_user', [
+                'id' => $id
+            ]);
         }
 
         return $this->render('user/useredit.html.twig', [

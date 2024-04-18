@@ -1,0 +1,31 @@
+<h2>Threads créer</h2>
+{% for thread in user.relationThread %}
+    <div class="lineThread">
+        <div class="d-flex align-items-center">
+            <a href="{{ path('app_threadPost', {id: thread.id}) }}"><h3>{{ thread.title }}</h3></a>
+            <p class="ms-4 mb-0">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') ~ " à " ~ thread.createdAt|date('H:i')}}</p>
+        </div>
+        <div class="tags">
+            {% for category in thread.relationCategory %}
+                <p class="tag">{{ category.title }}</p>
+            {% endfor %}
+            <p class="tag">{{ thread.status }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+<h2>Threads participé</h2>
+{% for response in user.relationResponse %}
+    <div class="lineThread">
+        <div class="d-flex align-items-center">
+            <a href="{{ path('app_threadPost', {id: response.thread.id}) }}"><h3>{{ response.thread.title }}</h3></a>
+            <p class="ms-4 mb-0">{{ "Réponse postée le " ~ response.createdAt|date('d/m/Y') ~ " à " ~ response.createdAt|date('H:i')}}</p>
+        </div>
+        <div class="tags">
+            {% for category in response.thread.relationCategory %}
+                <p class="tag">{{ category.title }}</p>
+            {% endfor %}
+            <p class="tag">{{ response.thread.status }}</p>
+        </div>
+    </div>
+{% endfor %}

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Thread;
+use App\Form\ThreadEditType;
 use App\Form\ThreadType;
 use App\Repository\ThreadRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -64,4 +66,31 @@ class ThreadController extends AbstractController
             'thread' => $thread
         ]);
     }
+
+    #[Route('/thread/{id}/edit', name: 'app_threadEdit', methods: ['POST', 'GET'])]
+    public function threadEdit(int $id, Thread $thread, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $formThreadEdit = $this->createForm(ThreadEditType::class, $thread);
+        $formThreadEdit->handleRequest($request);
+
+        if ($formThreadEdit->isSubmitted() && $formThreadEdit->isValid()) {
+            $thread->setDateUpdate(new DateTime());
+
+            $entityManager->persist($thread);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Les modifications ont bien été effectués.');
+
+            return $this->redirectToRoute('app_threadPost', [
+                'id' => $id
+            ]);
+        }
+
+        return $this->render('thread/threadedit.html.twig', [
+            'id' => $id,
+            'thread' => $thread,
+            'formThreadEdit' => $formThreadEdit
+        ]);
+    }
+
 }

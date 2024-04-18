@@ -25,8 +25,8 @@
             </div>
         </div>
         {% if app.user.id == thread.user.id %}
-            <a href="{{ path('app_response', {id: thread.id}) }}" class="btn btn_full">Modifier</a>
-            <a href="{{ path('app_response', {id: thread.id}) }}" class="btn btn_full">Supprimer</a>
+            <a href="{{ path('app_threadEdit', {id: thread.id}) }}" class="btn btn_full">Modifier</a>
+            <a href="{{ path('app_threadEdit', {id: thread.id}) }}" class="btn btn_full">Supprimer</a>
         {% endif %}
     </div>
 

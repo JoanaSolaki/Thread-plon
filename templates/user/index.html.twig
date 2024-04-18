@@ -6,7 +6,6 @@
     {% if id == app.user.id %}
         {# Page privé #}
         <h1>{{ user.username }}</h1>
-
         <div class="d-flex justify-content-between">
             <div>
                 <p>{{ "Compte créer le " ~ user.createdAt|date('d/m/Y') }}</p>
@@ -23,78 +22,19 @@
                 </form>
             </div>
         </div>
+        {% include "/components/profile.html.twig" %}
 
-        <h2>Threads créer</h2>
-        {% for thread in user.relationThread %}
-            <div class="lineThread">
-                <div class="d-flex align-items-center">
-                    <h3>{{ thread.title }}</h3>
-                    <p class="ms-4 mb-0">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') ~ " à " ~ thread.createdAt|date('H:i')}}</p>
-                </div>
-                <div class="tags">
-                    {% for category in thread.relationCategory %}
-                        <p class="tag">{{ category.title }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
-
-        <h2>Threads participé</h2>
-        {% for response in user.relationResponse %}
-            <div class="lineThread">
-                <div class="d-flex align-items-center">
-                    <h3>{{ response.thread.title }}</h3>
-                    <p class="ms-4 mb-0">{{ "Réponse postée le " ~ response.createdAt|date('d/m/Y') ~ " à " ~ response.createdAt|date('H:i')}}</p>
-                </div>
-                <div class="tags">
-                    {% for category in response.thread.relationCategory %}
-                        <p class="tag">{{ category.title }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
     {% endif %}
 
     {% if id != app.user.id %}
         {# Page publique #}
         <h1>{{ user.username }}</h1>
-
         <div>
             <p>{{ "Compte créer le " ~ user.createdAt|date('d/m/Y') }}</p>
             {% if user.dateUpdate != null %}
                 <p>{{ "Modifié le " ~ user.dateUpdate|date('d/m/Y') }}</p>
             {% endif %}
         </div>
-
-        <h2>Threads créer</h2>
-        {% for thread in user.relationThread %}
-            <div class="lineThread">
-                <div class="d-flex align-items-center">
-                    <h3>{{ thread.title }}</h3>
-                    <p class="ms-4 mb-0">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') ~ " à " ~ thread.createdAt|date('H:i')}}</p>
-                </div>
-                <div class="tags">
-                    {% for category in thread.relationCategory %}
-                        <p class="tag">{{ category.title }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
-
-        <h2>Threads participé</h2>
-        {% for response in user.relationResponse %}
-            <div class="lineThread">
-                <div class="d-flex align-items-center">
-                    <h3>{{ response.thread.title }}</h3>
-                    <p class="ms-4 mb-0">{{ "Réponse postée le " ~ response.createdAt|date('d/m/Y') ~ " à " ~ response.createdAt|date('H:i')}}</p>
-                </div>
-                <div class="tags">
-                    {% for category in response.thread.relationCategory %}
-                        <p class="tag">{{ category.title }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
-
+        {% include "/components/profile.html.twig" %}
     {% endif %}
 {% endblock %}
