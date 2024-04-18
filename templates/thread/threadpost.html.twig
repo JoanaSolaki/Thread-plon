@@ -51,8 +51,8 @@
                 <p>{{ response.bodyResponse }}</p> 
 
                 {% if app.user.id == response.user.id %}
-                    <a href="{{ path('app_response', {id: response.id}) }}" class="btn btn_full">Modifier</a>
-                    <a href="{{ path('app_response', {id: response.id}) }}" class="btn btn_full">Supprimer</a>
+                    <a href="{{ path('app_responseEdit', {id: response.id}) }}" class="btn btn_full">Modifier</a>
+                    <a href="{{ path('app_responseEdit', {id: response.id}) }}" class="btn btn_full">Supprimer</a>
                 {% endif %}
             </div>
         </div>
