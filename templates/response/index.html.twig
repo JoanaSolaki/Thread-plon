@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une réponse{% endblock %}
+
+{% block main %}
+    {% if app.user == null %}
+        <script>
+            window.location.href = "{{ path('app_login') }}";
+        </script>
+    {% endif %}
+
+    {% if app.user %}
+        <h1>Répondre au thread</h1>
+
+        {{ form_start(formResponse) }}
+            {{ form_row(formResponse.body_response) }}
+            <button type="submit" class="btn btn_full">Poster</button>
+        {{ form_end(formResponse) }}
+    {% endif %}
+    
+{% endblock %}

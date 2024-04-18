@@ -12,7 +12,14 @@
     {% if app.user %}
         <h1>Créer un thread</h1>
 
-        {{ form(formThread) }}
+        {{ form_start(formThread) }}
+            {{ form_row(formThread.title) }}
+            {{ form_row(formThread.description) }}
+            {{ form_row(formThread.body) }}
+            {{ form_row(formThread.relation_category)}}
+            <button type="submit" class="btn btn_full">Créer</button>
+        {{ form_end(formThread) }}
+
     {% endif %}
     
 {% endblock %}

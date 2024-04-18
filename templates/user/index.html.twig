@@ -16,14 +16,13 @@
             </div>
             <div class="d-flex flex-column">
                 <a href="{{ path('app_editUser', {id: user.id}) }}" class="btn btn_full">Modifier</a>
-                <form action="{{ path('app_deleteUser', {id: user.id}) }}" method="post">
+                <form class="mt-2" action="{{ path('app_deleteUser', {id: user.id}) }}" method="post">
                     {# Pour rendre le DELETE actif, aller dans config, packages, framework pour y ajouter : http_method_override: true #}
                     <input type="hidden" name="_method" value="DELETE">
                     <button type="submit" class="btn btn_outline">Supprimer</button>
                 </form>
             </div>
         </div>
-
 
         <h2>Threads créer</h2>
         {% for thread in user.relationThread %}
@@ -34,6 +33,21 @@
                 </div>
                 <div class="tags">
                     {% for category in thread.relationCategory %}
+                        <p class="tag">{{ category.title }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+        <h2>Threads participé</h2>
+        {% for response in user.relationResponse %}
+            <div class="lineThread">
+                <div class="d-flex align-items-center">
+                    <h3>{{ response.thread.title }}</h3>
+                    <p class="ms-4 mb-0">{{ "Réponse postée le " ~ response.createdAt|date('d/m/Y') ~ " à " ~ response.createdAt|date('H:i')}}</p>
+                </div>
+                <div class="tags">
+                    {% for category in response.thread.relationCategory %}
                         <p class="tag">{{ category.title }}</p>
                     {% endfor %}
                 </div>
@@ -71,11 +85,11 @@
         {% for response in user.relationResponse %}
             <div class="lineThread">
                 <div class="d-flex align-items-center">
-                    <h3>{{ response.title }}</h3>
-                    <p class="ms-4 mb-0">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') ~ " à " ~ thread.createdAt|date('H:i')}}</p>
+                    <h3>{{ response.thread.title }}</h3>
+                    <p class="ms-4 mb-0">{{ "Réponse postée le " ~ response.createdAt|date('d/m/Y') ~ " à " ~ response.createdAt|date('H:i')}}</p>
                 </div>
                 <div class="tags">
-                    {% for category in thread.relationCategory %}
+                    {% for category in response.thread.relationCategory %}
                         <p class="tag">{{ category.title }}</p>
                     {% endfor %}
                 </div>

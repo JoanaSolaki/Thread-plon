@@ -31,16 +31,6 @@ class ThreadController extends AbstractController
         ]);
     }
 
-    #[Route('/thread/{id}', name: 'app_threadPost')]
-    public function threadPost(int $id, ThreadRepository $threadRepository): Response
-    {
-        $thread = $threadRepository->find($id);
-        return $this->render('thread/threadpost.html.twig', [
-            'id' => $id,
-            'thread' => $thread
-        ]);
-    }
-
     #[Route('/thread/add', name: 'app_threadAdd')]
     public function addThread(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
@@ -62,6 +52,16 @@ class ThreadController extends AbstractController
 
         return $this->render('thread/addthread.html.twig', [
             'formThread' => $formThread,
+        ]);
+    }
+
+    #[Route('/thread/{id}', name: 'app_threadPost')]
+    public function threadPost(int $id, ThreadRepository $threadRepository): Response
+    {
+        $thread = $threadRepository->find($id);
+        return $this->render('thread/threadpost.html.twig', [
+            'id' => $id,
+            'thread' => $thread
         ]);
     }
 }

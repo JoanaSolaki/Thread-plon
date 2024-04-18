@@ -9,7 +9,7 @@
     <div class="thread">
         <h2>{{ thread.title }}</h2>
 
-        <p>{{ "Posté le " ~ thread.createdAt|date('d/m/Y') }}</p>
+        <p>{{ "Posté le " ~ thread.createdAt|date('d/m/Y') ~ " à " ~ thread.createdAt|date('H:i') }}</p>
         <a href="{{ path('app_user', {id: thread.user.id}) }}" class="mb-4">{{ "Rédigé par " ~ thread.user.username }}</a>
         {% if thread.dateUpdate != null %}
             <p>{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
@@ -24,34 +24,42 @@
                 {% endfor %}
             </div>
         </div>
+        {% if app.user.id == thread.user.id %}
+            <a href="{{ path('app_response', {id: thread.id}) }}" class="btn btn_full">Modifier</a>
+            <a href="{{ path('app_response', {id: thread.id}) }}" class="btn btn_full">Supprimer</a>
+        {% endif %}
     </div>
 
     {% for response in thread.relationResponse %}
-        <div class="thread">
+        <div class="response">
         
             <div class="votes">
-                {% for votes in response.relationResponse %}
+                {# {% for votes in response.relationResponse %} #}
                     
-                {% endfor %}
+                {# {% endfor %} #}
             </div>
 
-            <div class="response">
-                <h2>{{ response.title }}</h2>
+            <div class="responseInfo">
+                <h2>Réponse de {{ response.user.username }}</h2>
 
-                <p>{{ "Posté le " ~ response.createdAt|date('d/m/Y') }}</p>
-                <a href="{{ path('app_user', {id: response.user_id}) }}" class="mb-4">{{ "Rédigé par " ~ thread.user.username }}</a>
+                <p>{{ "Posté le " ~ response.createdAt|date('d/m/Y') ~ " à " ~ response.createdAt|date('H:i') }}</p>
+                <a href="{{ path('app_user', {id: response.user.id}) }}" class="mb-4">{{ "Rédigé par " ~ response.user.username }}</a>
                 {% if response.dateUpdate != null %}
                     <p>{{ "Modifié le " ~ response.dateUpdate|date('d/m/Y') }}</p>
                 {% endif %}
 
-                <p>{{ response.body_response }}</p> 
+                <p>{{ response.bodyResponse }}</p> 
+
+                {% if app.user.id == response.user.id %}
+                    <a href="{{ path('app_response', {id: response.id}) }}" class="btn btn_full">Modifier</a>
+                    <a href="{{ path('app_response', {id: response.id}) }}" class="btn btn_full">Supprimer</a>
+                {% endif %}
             </div>
-        </div> 
-        
+        </div>
     {% endfor %}
 
     {% if app.user %}
-        <a href="" class="btn btn_full">Répondre</a>
+        <a href="{{ path('app_response', {id: thread.id}) }}" class="btn btn_full">Répondre</a>
     {% endif %}
     
 {% endblock %}

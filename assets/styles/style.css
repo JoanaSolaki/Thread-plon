@@ -36,7 +36,7 @@ form {
     margin: 40px auto;
 }
 
-.thread {
+.thread, .response {
     background-color: var(--white);
     border-radius: 4px;
     padding: 20px;
@@ -127,6 +127,15 @@ form {
     background-color: var(--white);
     padding: 20px;
     margin: 20px 0;
+}
+
+.response {
+    display: flex;
+    flex-flow: row;
+}
+
+.votes {
+    width: 100px;
 }
 
 /* FOOTER */
