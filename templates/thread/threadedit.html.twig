@@ -14,7 +14,9 @@
 
         {{ form_start(formThreadEdit) }}
             {{ form_row(formThreadEdit.title) }}
-            {{ form_row(formThreadEdit.status) }}
+            {% if app.user.roles[0] == "ROLE_ADMIN"  %}
+                {{ form_row(formThreadEdit.status) }}
+            {% endif %}
             {{ form_row(formThreadEdit.description) }}
             {{ form_row(formThreadEdit.body) }}
             {{ form_row(formThreadEdit.relation_category)}}

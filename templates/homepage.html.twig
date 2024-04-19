@@ -8,13 +8,13 @@
         <a href="{{ path('app_threadPost', {id: thread.id}) }}"><h2>{{ thread.title }} - {{ thread.status }}</h2> </a>
 
         <div class="threadInfos">
-
             <p class="me-1">{{ "Posté le " ~ thread.createdAt|date('d/m/Y') }}</p>
-            <a href="{{ path('app_user', {id: thread.user.id}) }}" class="me-1">{{ "par " ~ thread.user.username }}</a>
+            <a href="{{ path('app_user', {id: thread.user.id}) }}" class="mb-4"> par {% if thread.user.username != null %} {{ thread.user.username }} {% endif %}
+                {% if thread.user.username == null %} Anonymous {% endif %}
+            </a>
             {% if thread.dateUpdate != null %}
                 <p class="me-1">{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
             {% endif %}
-
         </div>
 
         <p>{{ thread.description }}</p> 
