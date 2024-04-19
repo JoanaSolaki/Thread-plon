@@ -70,4 +70,21 @@ class ResponseController extends AbstractController
             'formResponse' => $formResponse
         ]);
     }
+
+    #[Route('/response/{id}/delete', name: 'app_responseDelete', methods: ['DELETE'])]
+    public function threadDelete(int $id, EntityManagerInterface $entityManager, EntityResponse $response): Response
+    {
+        $votes = $response->getRelationVotes();
+
+        foreach ($votes as $vote) {
+            $entityManager->remove($vote);
+        }
+
+        $entityManager->remove($response);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'La réponse a été supprimé.');
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }

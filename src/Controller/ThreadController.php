@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Thread;
 use App\Form\ThreadEditType;
 use App\Form\ThreadType;
+use App\Repository\ResponseRepository;
 use App\Repository\ThreadRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,7 +43,7 @@ class ThreadController extends AbstractController
         if ($formThread->isSubmitted() && $formThread->isValid()) {
             $thread->setCreatedAt(new \DateTimeImmutable());
             $thread->setUser($security->getUser());
-            $thread->setStatus("ouvert");
+            $thread->setStatus("open");
             $entityManager->persist($thread);
             $entityManager->flush();
 
@@ -92,4 +93,24 @@ class ThreadController extends AbstractController
         ]);
     }
 
+    #[Route('/thread/{id}/delete', name: 'app_threadDelete', methods: ['DELETE'])]
+    public function threadDelete(int $id, EntityManagerInterface $entityManager, Thread $thread): Response
+    {
+        $responses = $thread->getRelationResponse();
+
+        foreach ($responses as $response) {
+            $votes = $response->getRelationVotes();
+            foreach ($votes as $vote) {
+                $entityManager->remove($vote);
+            }
+            $entityManager->remove($response);
+        }
+
+        $entityManager->remove($thread);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Le thread a été supprimé.');
+
+        return $this->redirectToRoute('app_homepage');
+    }
 }

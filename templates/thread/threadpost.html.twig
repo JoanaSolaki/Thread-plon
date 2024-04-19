@@ -28,7 +28,10 @@
         </div>
         {% if app.user != null and app.user.id == thread.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
             <a href="{{ path('app_threadEdit', {id: thread.id}) }}" class="btn btn_full mt-2">Modifier</a>
-            <a href="{{ path('app_threadEdit', {id: thread.id}) }}" class="btn btn_full mt-2">Supprimer</a>
+            <form class="mt-2 ms-0 mb-0" action="{{ path('app_threadDelete', {id: thread.id}) }}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn_outline">Supprimer</button>
+            </form>
         {% endif %}
     </div>
 
@@ -64,7 +67,10 @@
 
                 {% if app.user != null and app.user.id == response.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
                     <a href="{{ path('app_responseEdit', {id: response.id}) }}" class="btn btn_full">Modifier</a>
-                    <a href="{{ path('app_responseEdit', {id: response.id}) }}" class="btn btn_full">Supprimer</a>
+                    <form class="mt-2" action="{{ path('app_responseDelete', {id: response.id}) }}" method="post">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn_outline">Supprimer</button>
+                    </form>
                 {% endif %}
             </div>
         </div>
