@@ -19,7 +19,6 @@ class ResponseController extends AbstractController
     #[Route('/response/{id}', name: 'app_response')]
     public function addResponse(int $id, Request $request, EntityManagerInterface $entityManager, Security $security, ThreadRepository $threadRepository): Response
     {
-
         $response = new EntityResponse();
         $formResponse = $this->createForm(ResponseType::class, $response);
         $formResponse->handleRequest($request);

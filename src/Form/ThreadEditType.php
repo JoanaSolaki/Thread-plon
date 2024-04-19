@@ -19,9 +19,9 @@ class ThreadEditType extends AbstractType
         $builder
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    'Ouvert' => "ouvert",
-                    'Résolu' => "resolu",
-                    'Fermé' => "ferme"
+                    'Ouvert' => "open",
+                    'Fermé' => "closed",
+                    'Bloqué' => "blocked"
                 ],
             ])
             ->add('title')

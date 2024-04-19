@@ -28,8 +28,7 @@ class ThreadController extends AbstractController
     #[Route('/thread', name: 'app_thread')]
     public function index(): Response
     {
-        return $this->render('thread/index.html.twig', [
-            'controller_name' => 'ThreadController',
+        return $this->redirectToRoute('app_homepage', [
         ]);
     }
 

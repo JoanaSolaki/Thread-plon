@@ -3,7 +3,7 @@
 {% block title %}{{ user.username }}{% endblock %}
 
 {% block main %}
-    {% if id == app.user.id %}
+    {% if app.user != null and id == app.user.id %}
         {# Page privé #}
         <h1>{{ user.username }}</h1>
         <div class="d-flex justify-content-between">
@@ -26,7 +26,7 @@
 
     {% endif %}
 
-    {% if id != app.user.id %}
+    {% if app.user == null or id != app.user.id %}
         {# Page publique #}
         <h1>{{ user.username }}</h1>
         <div>
