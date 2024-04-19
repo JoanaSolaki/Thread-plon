@@ -13,7 +13,7 @@
                 {% if thread.user.username == null %} Anonymous {% endif %}
             </a>
             {% if thread.dateUpdate != null %}
-                <p class="me-1">{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
+                <p class="ms-1">{{ "Modifié le " ~ thread.dateUpdate|date('d/m/Y') }}</p>
             {% endif %}
         </div>
 

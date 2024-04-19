@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Thread;
 use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use DateTime;
@@ -62,6 +63,17 @@ class UserController extends AbstractController
     public function deleteUser(int $id, EntityManagerInterface $entityManager, User $user): Response
     {
         $this->container->get('security.token_storage')->setToken(null);
+
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        $anonymousUser = $entityManager->getRepository(User::class)->findOneBy(['email' => 'anonymous@simplon.com']);
+
+        $threads = $entityManager->getRepository(Thread::class)->findBy(['user' => $user]);
+
+        foreach ($threads as $thread) {
+            $thread->setUser($anonymousUser);
+            $entityManager->persist($thread);
+        }
         
         $entityManager->remove($user);
         $entityManager->flush();
