@@ -14,15 +14,12 @@
 
         {{ form_start(formThreadEdit) }}
             {{ form_row(formThreadEdit.title) }}
-            {% if app.user.roles[0] == "ROLE_ADMIN"  %}
-                {{ form_row(formThreadEdit.status) }}
-            {% endif %}
+            {{ form_row(formThreadEdit.status) }}
             {{ form_row(formThreadEdit.description) }}
             {{ form_row(formThreadEdit.body) }}
             {{ form_row(formThreadEdit.relation_category)}}
             <button type="submit" class="btn btn_full">Modifier</button>
         {{ form_end(formThreadEdit) }}
-
     {% endif %}
     
 {% endblock %}

@@ -74,7 +74,7 @@ class ThreadController extends AbstractController
 
         if ($formThreadEdit->isSubmitted() && $formThreadEdit->isValid()) {
             $thread->setDateUpdate(new DateTime());
-
+            
             $entityManager->persist($thread);
             $entityManager->flush();
 
